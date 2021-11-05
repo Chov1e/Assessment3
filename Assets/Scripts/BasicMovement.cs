@@ -5,7 +5,7 @@ using UnityEngine;
 public class BasicMovement : MonoBehaviour
 {
     public Animator animator;
-    public float speed = 0.4f;
+    public float speed = 0.1f;
     Vector2 dest = Vector2.zero;
 
 

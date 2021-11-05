@@ -18,4 +18,18 @@ public class ButtonManager : MonoBehaviour
         Scene thisScene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(thisScene.name);
     }
+
+    public void Level1()
+    {
+        SceneManager.LoadScene("Pacstudent");
+    }
+
+    public void Level2()
+    {
+    }
+
+    public void exitgame()
+    {
+        SceneManager.LoadScene("StartScene");
+    }
 }

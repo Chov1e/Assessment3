@@ -11,9 +11,20 @@ public class MonsterMove : MonoBehaviour
     public AudioSource deathAudio;
     private Animator animator;
 
+    private SpriteRenderer _spriteRenderer;
+
+    private BoxCollider2D _boxCollider2D;
+    public int Lives;
+    private PlayerLives playerLives;
+
+
+
     private void Start()
     {
         wayPointTarget = wayPoint01;
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _boxCollider2D = GetComponent<BoxCollider2D>();
+        playerLives = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerLives>();
     }
 
     private void Update()
@@ -42,13 +53,22 @@ public class MonsterMove : MonoBehaviour
     }
 
     //destroy player when collide
-    void OnTriggerEnter2D(Collider2D co)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (co.name == "Pac-man")
+        if (other.tag == "Player")
+
         {
-            Destroy(co.gameObject);
+            playerLives.Damageplayer(Lives);
+            other.gameObject.SetActive(false);        
             deathAudio.Play();
+            StartCoroutine(Respawn(other.gameObject));
         }
     }
 
+    IEnumerator Respawn(GameObject gObj)
+    {
+        yield return new WaitForSeconds(3);
+        gObj.transform.position = new Vector3(-7.08f, 8.07f, 0f);
+        gObj.SetActive(true);
+    }
 }
